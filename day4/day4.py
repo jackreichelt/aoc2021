@@ -68,8 +68,6 @@ boards = []
 for board in boardData:
 	boards.append(Bingo(board))
 
-done = False
-winner = -1
 for num in nums:
 	if len(boards) == 0:
 		break
