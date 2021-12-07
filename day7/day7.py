@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from math import floor
+from statistics import mean
 
 initialCrabs = [int(x) for x in open('data.txt').readline().strip().split(',')]
 
@@ -18,12 +20,6 @@ for i in range(min(initialCrabs), max(initialCrabs)):
 	
 print(f'Best target is {bestTarget} costing {minCost}.')
 
-minCost = (len(initialCrabs)*max(initialCrabs))**2
-bestTarget = -1
-for i in range(min(initialCrabs), max(initialCrabs)):
-	alignmentCost = increasingFuelCost(initialCrabs, i)
-	if alignmentCost < minCost:
-		minCost = alignmentCost
-		bestTarget = i
-		
-print(f'Best real target is {bestTarget} costing {minCost}.')
+target = floor(mean(initialCrabs))
+alignmentCost = increasingFuelCost(initialCrabs, target)	
+print(f'Best real target is {target} costing {alignmentCost}.')
