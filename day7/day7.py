@@ -5,19 +5,19 @@ from statistics import mean
 initialCrabs = [int(x) for x in open('data.txt').readline().strip().split(',')]
 
 def alignmentFuelCost(crabs, target):
-	return sum([abs(crab-target) for crab in crabs])
+  return sum([abs(crab-target) for crab in crabs])
 
 def increasingFuelCost(crabs, target):
-	return sum([(abs(crab-target))*(abs(crab-target)+1)//2 for crab in crabs])
-		
+  return sum([(abs(crab-target))*(abs(crab-target)+1)//2 for crab in crabs])
+
 minCost = len(initialCrabs)*max(initialCrabs)
 bestTarget = -1
 for i in range(min(initialCrabs), max(initialCrabs)):
-	alignmentCost = alignmentFuelCost(initialCrabs, i)
-	if alignmentCost < minCost:
-		minCost = alignmentCost
-		bestTarget = i
-	
+  alignmentCost = alignmentFuelCost(initialCrabs, i)
+  if alignmentCost < minCost:
+    minCost = alignmentCost
+    bestTarget = i
+
 print(f'Best target is {bestTarget} costing {minCost}.')
 
 target = floor(mean(initialCrabs))
