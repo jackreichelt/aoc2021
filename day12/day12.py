@@ -20,9 +20,9 @@ class Cave():
 			pathString = ','.join([cave.id for cave in pathSoFar])
 #			print(pathString)
 			self.pathsTo.add(pathString)
-			return
+			return pathSoFar
 		else:
-			[neigh.findPath(pathSoFar.copy()) for neigh in self.neighbours if neigh.large or neigh not in pathSoFar]
+			return [neigh.findPath(pathSoFar.copy()) for neigh in self.neighbours if neigh.large or neigh not in pathSoFar]
 	
 	def findLongerPath(self, pathSoFar, doubleDone):
 		pathSoFar.append(self)
@@ -32,10 +32,11 @@ class Cave():
 			self.pathsTo.add(pathString)
 			return
 		else:
-			shortPaths = [neigh.findLongerPath(pathSoFar.copy(), doubleDone) for neigh in self.neighbours if neigh.large or neigh not in pathSoFar]
+			shortPathOptions = [neigh for neigh in self.neighbours if neigh.large or neigh not in pathSoFar]
+			longPathOptions = [neigh for neigh in self.neighbours if not neigh.large and neigh not in shortPathOptions and neigh.id != 'start']
+			[neigh.findLongerPath(pathSoFar.copy(), doubleDone) for neigh in shortPathOptions]
 			if not doubleDone:
-				longPaths = [neigh.findLongerPath(pathSoFar.copy(), True) for neigh in self.neighbours if neigh.large == False and pathSoFar.count(neigh) == 1 and neigh.id != 'start']
-			
+				[neigh.findLongerPath(pathSoFar.copy(), True) for neigh in longPathOptions]
 
 allCaves = {}
 
@@ -47,9 +48,9 @@ for line in data:
 		allCaves[cave2] = Cave(cave2, cave2.isupper())
 	allCaves[cave1].connect(allCaves[cave2])
 
-#paths = allCaves['start'].findPath([])
-#
-#print('Total paths:', len(allCaves['end'].pathsTo))
+paths = allCaves['start'].findPath([])
+
+print('Total paths:', len(allCaves['end'].pathsTo))
 
 allCaves['end'].pathCount = 0
 
