@@ -48,12 +48,12 @@ for line in data:
 		allCaves[cave2] = Cave(cave2, cave2.isupper())
 	allCaves[cave1].connect(allCaves[cave2])
 
-paths = allCaves['start'].findPath([])
+allCaves['start'].findPath([])
 
 print('Total paths:', len(allCaves['end'].pathsTo))
 
 allCaves['end'].pathCount = 0
 
-longPaths = paths = allCaves['start'].findLongerPath([], False)
+allCaves['start'].findLongerPath([], False)
 
 print('Total long paths:', len(allCaves['end'].pathsTo))
