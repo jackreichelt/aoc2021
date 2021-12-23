@@ -5,7 +5,6 @@ from math import floor, ceil
 class SnailfishNumber():
   
   def findParts(numString):
-    bracketPairs = numString.count('[')
     middleIndex = len(numString)//2
     left, right = numString[1:middleIndex].rstrip(','), numString[middleIndex:-1].lstrip(',')
     

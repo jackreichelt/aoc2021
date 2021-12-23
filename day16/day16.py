@@ -6,14 +6,6 @@ def hexToBinString(hexStr):
   binStr = format(decNum, "b")
   return '0' * (len(hexStr)*4 - len(binStr)) + binStr
 
-
-dataPointer = 0
-
-def advancePointer(dataPointer):
-  if dataPointer % 4 == 0:
-    return dataPointer
-  return (dataPointer//4+1)*4
-
 def getSnippet(binary, dataPointer, length):
   return binary[dataPointer:dataPointer+length], dataPointer+length
 
@@ -54,7 +46,7 @@ def getValuePacket(binary, dataPointer):
   
   if int(packetType, 2) != 4:
     print(f'Error reading packet from {start} to {dataPointer}! Expected packetType 4, got {int(packetType, 2)}!')
-    exit()  
+    exit()
   return int(version, 2), packetType, value, dataPointer
 
 def getLengthOfPackets(binary, dataPointer):
